@@ -1,0 +1,122 @@
+@import './base.css';
+
+@font-face {
+  font-family: 'Commuters Sans';
+  src: url('fonts/commuters-sans/Fontspring-DEMO-commuterssans-bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Commuters Sans';
+  src: url('fonts/commuters-sans/Fontspring-DEMO-commuterssans-extralight.otf') format('opentype');
+  font-weight: 200; /* Extra Light */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Commuters Sans';
+  src: url('fonts/commuters-sans/Fontspring-DEMO-commuterssans-light.otf') format('opentype');
+  font-weight: 300; /* Light */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Commuters Sans';
+  src: url('fonts/commuters-sans/Fontspring-DEMO-commuterssans-regular.otf') format('opentype');
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Commuters Sans';
+  src: url('fonts/commuters-sans/Fontspring-DEMO-commuterssans-semibold.otf') format('opentype');
+  font-weight: 600; /* Semi Bold */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Commuters Sans';
+  src: url('fonts/commuters-sans/Fontspring-DEMO-commuterssans-bold.otf') format('opentype');
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Commuters Sans';
+  src: url('fonts/commuters-sans/Fontspring-DEMO-commuterssans-extrabold.otf') format('opentype');
+  font-weight: 800; /* Extra Bold */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Commuters Sans';
+  src: url('fonts/commuters-sans/Fontspring-DEMO-commuterssans-heavy.otf') format('opentype');
+  font-weight: 900; /* Heavy */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Apercu';
+  src: url('fonts/apercu/apercu_regular_pro.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Apercu';
+  src: url('fonts/apercu/apercu_medium_pro.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Apercu';
+  src: url('fonts/apercu/apercu_bold_pro.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  font-family: 'Commuters Sans', sans-serif;
+  font-weight: 700;
+}
+
+#app {
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+}
