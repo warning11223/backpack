@@ -16,7 +16,7 @@
 defineProps({
   currentColor: {
     type: String,
-    default: 'currentColor' // По умолчанию наследует цвет текста
+    default: 'currentColor'
   }
 })
 </script>
@@ -24,6 +24,5 @@ defineProps({
 <style scoped>
 .icon-cross {
   display: block;
-  /* fill теперь управляется через пропс */
 }
 </style>

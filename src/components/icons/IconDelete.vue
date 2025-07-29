@@ -21,7 +21,7 @@
 defineProps({
   currentColor: {
     type: String,
-    default: 'currentColor' // Наследует цвет текста родителя
+    default: 'currentColor'
   }
 })
 </script>
