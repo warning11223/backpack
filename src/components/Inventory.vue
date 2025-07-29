@@ -60,6 +60,5 @@ onMounted(() => {
 
 .inventory-content {
   display: flex;
-  height: 500px;
 }
 </style>

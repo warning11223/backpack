@@ -48,6 +48,7 @@ const setActiveFilter = (filter: 'all' | 'armor' | 'weapon' | 'misc') => {
   flex-direction: column;
   justify-content: space-between;
   padding: 16px 5px;
+  border: 1px solid rgb(0, 0, 0);
 }
 
 .sidebar-wrapper {

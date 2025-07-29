@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { InventoryItemT } from '@/types/inventory-types.ts'
-import { type Ref } from 'vue'
+import { computed, type Ref, unref } from 'vue'
 import InventoryGrid from '@/components/InventoryGrid.vue'
 import FilterLabel from '@/components/FilterLabel.vue'
 
@@ -10,51 +10,62 @@ interface InventoryContentProps {
   allItems: InventoryItemT[]
 }
 
-defineProps<InventoryContentProps>()
+const { activeFilter, items, allItems } = defineProps<InventoryContentProps>()
+
+const shouldShowScroll = computed(() => {
+  const itemsArray = unref(items)
+  return itemsArray.length > 40
+})
 </script>
 
 <template>
-  <div>
+  <div class="content-wrapper">
     <FilterLabel
       :items="items"
       :active-filter="activeFilter"
       :all-items="allItems"
     />
 
-    <div class="main-inventory">
+    <div
+      class="main-inventory"
+      :class="{ 'with-scroll': shouldShowScroll }"
+    >
       <InventoryGrid :items="items" />
     </div>
   </div>
 </template>
 
 <style scoped>
+.content-wrapper {
+  border: 1px solid rgb(0, 0, 0);
+}
+
 .main-inventory {
   flex: 1;
-  padding: 0 5px 10px 10px;
-  overflow: hidden scroll;
-  height: 455px;
+  padding: 0 7px 0px 14px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  max-height: 744px;
+  margin-right: 7px;
 
-  scrollbar-width: thin;
-  scrollbar-color: #555 #2a2a2a;
+  &.with-scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 6px;
+    margin-right: 6px;
 
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
 
-  &::-webkit-scrollbar-track {
-    background: #2a2a2a;
-    border-radius: 4px;
-  }
+    &::-webkit-scrollbar-track {
+      background: rgb(69, 69, 69);
 
-  &::-webkit-scrollbar-thumb {
-    background-color: #555;
-    border-radius: 4px;
-    border: 1px solid #444;
-  }
+    }
 
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #666;
+    &::-webkit-scrollbar-thumb {
+      background-color: rgb(217, 217, 217);
+    }
   }
 }
 </style>
