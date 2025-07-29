@@ -19,11 +19,11 @@ const { error } = defineProps<ErrorStateProps>()
   align-items: center;
   justify-content: center;
   height: 300px;
-  color: #aaa;
+  color: var(--text-gray-47);
   font-size: 14px;
 }
 
 .error-state {
-  color: #ff6b6b;
+  color: var(--error);
 }
 </style>

@@ -44,14 +44,14 @@ const getFilterTitle = (): string => {
   font-size: 14px;
 
   span:first-child {
-    color: rgb(255, 255, 255);
+    color: var(--text-white);
     font-size: 20px;
     font-weight: 800;
     line-height: 25px;
     text-transform: uppercase;
   }
   span:nth-child(2) {
-    color: rgb(255, 255, 255);
+    color: var(--text-white);
     font-family: 'Apercu';
     font-size: 19px;
     font-weight: 500;
@@ -60,6 +60,6 @@ const getFilterTitle = (): string => {
 }
 
 .item-count {
-  color: #aaa;
+  color: var(--text-white);
 }
 </style>

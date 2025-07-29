@@ -43,12 +43,12 @@ const setActiveFilter = (filter: 'all' | 'armor' | 'weapon' | 'misc') => {
 <style scoped>
 .sidebar {
   width: 50px;
-  background-color: rgb(57, 56, 57);
+  background-color: var(--gray);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 16px 5px;
-  border: 1px solid rgb(0, 0, 0);
+  border: 1px solid var(--black);
 }
 
 .sidebar-wrapper {
@@ -68,7 +68,7 @@ const setActiveFilter = (filter: 'all' | 'armor' | 'weapon' | 'misc') => {
 
 .sidebar-item.trash-icon {
   padding: 10px;
-  border: 2px solid rgb(69, 69, 69);
+  border: 2px solid var(--white-gray);
   border-radius: 2px;
 }
 </style>

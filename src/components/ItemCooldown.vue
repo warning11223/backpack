@@ -73,7 +73,7 @@ onUnmounted(() => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: white;
+  color: var(--text-white);
   font-size: 17px;
   font-weight: bold;
 
@@ -88,7 +88,7 @@ onUnmounted(() => {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--black-50);
     z-index: -1;
   }
 }

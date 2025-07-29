@@ -51,8 +51,8 @@ onMounted(() => {
 <style scoped>
 .inventory-container {
   max-width: 562px;
-  background-color: #2a2a2a;
-  border: 1px solid rgb(0, 0, 0);
+  background-color: var(--smoky-black);
+  border: 1px solid var(--black);
   font-family: Arial, sans-serif;
   color: white;
   overflow: hidden;

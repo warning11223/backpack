@@ -37,7 +37,7 @@ const shouldShowScroll = computed(() => {
 
 <style scoped>
 .content-wrapper {
-  border: 1px solid rgb(0, 0, 0);
+  border: 1px solid var(--dark);
 }
 
 .main-inventory {
@@ -59,12 +59,12 @@ const shouldShowScroll = computed(() => {
     }
 
     &::-webkit-scrollbar-track {
-      background: rgb(69, 69, 69);
+      background: var(--white-gray);
 
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: rgb(217, 217, 217);
+      background-color: var(--scroll-white);
     }
   }
 }

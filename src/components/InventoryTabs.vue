@@ -19,7 +19,6 @@ import IconCross from '@/components/icons/IconCross.vue'
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333;
 }
 
 .tabs {
@@ -33,31 +32,31 @@ import IconCross from '@/components/icons/IconCross.vue'
   align-items: center;
   justify-content: center;
   width: 100%;
-  color: rgba(255, 255, 255, 0.47);
+  color: var(--text-gray-47);
   font-size: 24px;
   font-weight: 800;
   line-height: 30px;
   text-transform: uppercase;
-  background-color: rgb(57, 56, 57);
+  background-color: var(--gray);
   cursor: pointer;
-  border: 1px solid rgb(0, 0, 0);
+  border: 1px solid var(--black);
 }
 
 .tab.active {
-  background: rgb(36, 34, 35);
-  color: rgb(255, 255, 255);
+  background: var(--smoky-black);
+  color: var(--text-white);
 }
 
 .close-btn {
   height: 59px;
   padding: 15px;
-  background: rgb(36, 34, 35);
-  border: 1px solid rgb(0, 0, 0);
+  background: var(--smoky-black);
+  border: 1px solid var(--black);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--gray-50);
 }
 </style>

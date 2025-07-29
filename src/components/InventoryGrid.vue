@@ -70,8 +70,8 @@ const getItemAtPosition = (row: number, col: number): InventoryItemT | null => {
 .item-slot {
   width: 100%;
   height: 100%;
-  background-color: rgb(26, 26, 26);
-  border: 1px solid rgb(69, 69, 69);
+  background-color: var(--dark);
+  border: 1px solid var(--white-gray);
   position: relative;
   display: flex;
   align-items: center;

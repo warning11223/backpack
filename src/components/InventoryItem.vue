@@ -128,7 +128,7 @@ const hideTooltip = () => {
   position: absolute;
   bottom: 3px;
   right: 5px;
-  color: rgb(255, 255, 255);
+  color: var(--text-white);
   font-family: 'Apercu';
   font-size: 17px;
   font-weight: 500;
@@ -141,7 +141,7 @@ const hideTooltip = () => {
   left: 0;
   width: 0;
   height: 0;
-  border-left: 60px solid rgba(6, 6, 6, 0.65);
+  border-left: 60px solid var(--darkened);
   border-bottom: 42px solid transparent;
   z-index: 5;
 }
@@ -151,8 +151,8 @@ const hideTooltip = () => {
   top: 4px;
   left: 3px;
   z-index: 6;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  color: rgb(255, 255, 255);
+  text-shadow: 1px 1px 2px var(--black-80);
+  color: var(--text-white);
   font-family: 'Apercu';
   font-size: 17px;
   font-weight: 500;
@@ -163,19 +163,19 @@ const hideTooltip = () => {
 .item-slot {
   width: 100%;
   height: 100%;
-  background-color: rgb(26, 26, 26);
-  border: 1px solid rgb(69, 69, 69);
+  background-color: var(--dark);
+  border: 1px solid var(--white-gray);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 
   &.weapon {
-    background: radial-gradient(59.01% 59.01% at 50% 50%,rgb(127, 89, 206),rgba(127, 89, 206, 0) 100%),rgb(26, 26, 26);
+    background: radial-gradient(59.01% 59.01% at 50% 50%,rgb(127, 89, 206),rgba(127, 89, 206, 0) 100%),var(--dark);
   }
 
   &.armor {
-    background: radial-gradient(59.01% 59.01% at 50% 50%,rgb(54, 124, 206),rgba(0, 95, 206, 0) 100%),rgb(26, 26, 26);
+    background: radial-gradient(59.01% 59.01% at 50% 50%,rgb(54, 124, 206),rgba(0, 95, 206, 0) 100%),var(--dark);
   }
 }
 </style>

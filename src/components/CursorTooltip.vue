@@ -26,9 +26,9 @@ const { tooltipX, tooltipVisible, tooltipY, tooltipContent } = defineProps<Toolt
 .tooltip.cursor-tooltip {
   position: fixed;
   padding: 4px 8px;
-  background-color: rgba(65, 60, 53, 0.8);
-  border: 1px solid #555;
-  color: white;
+  background-color: var(--dark-gray);
+  border: 1px solid var(--border-gray);
+  color: var(--text-white);
   font-size: 12px;
   border-radius: 8px;
   white-space: nowrap;
