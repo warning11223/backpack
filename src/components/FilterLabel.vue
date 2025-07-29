@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, isRef, type Ref } from 'vue'
-import type { InventoryItemT } from '@/types/inventory-types.ts'
+import { FilterEnum, type InventoryItemT } from '@/types/inventory-types.ts'
 
 interface InventoryContentProps {
   items: Ref<InventoryItemT[]> | InventoryItemT[]
-  activeFilter: 'all' | 'armor' | 'weapon' | 'misc'
+  activeFilter: FilterEnum
   allItems: InventoryItemT[]
 }
 

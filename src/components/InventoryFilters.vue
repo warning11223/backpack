@@ -4,16 +4,17 @@ import IconDelete from '@/components/icons/IconDelete.vue'
 import IconArmorSort from '@/components/icons/IconArmorSort.vue'
 import IconMiscSort from '@/components/icons/IconMiscSort.vue'
 import IconAllSort from '@/components/icons/IconAllSort.vue'
+import { FilterEnum } from '@/types/inventory-types.ts'
 
 interface InventoryFiltersProps {
-  activeFilter: 'all' | 'armor' | 'weapon' | 'misc'
+  activeFilter: FilterEnum
 }
 
 const { activeFilter } = defineProps<InventoryFiltersProps>()
 
 const emit = defineEmits(['update:activeFilter'])
 
-const setActiveFilter = (filter: 'all' | 'armor' | 'weapon' | 'misc') => {
+const setActiveFilter = (filter: FilterEnum) => {
   emit('update:activeFilter', filter)
 }
 </script>
@@ -21,17 +22,17 @@ const setActiveFilter = (filter: 'all' | 'armor' | 'weapon' | 'misc') => {
 <template>
   <aside class="sidebar">
     <div class="sidebar-wrapper">
-      <div class="sidebar-item" @click="setActiveFilter('all')">
-        <IconAllSort :current-color="activeFilter === 'all' ? 'white' : 'gray'" />
+      <div class="sidebar-item" @click="setActiveFilter(FilterEnum.All)">
+        <IconAllSort :current-color="activeFilter === FilterEnum.All ? 'white' : 'gray'" />
       </div>
-      <div @click="setActiveFilter('armor')" class="sidebar-item">
-        <IconArmorSort :current-color="activeFilter === 'armor' ? 'white' : 'gray'" />
+      <div @click="setActiveFilter(FilterEnum.Armor)" class="sidebar-item">
+        <IconArmorSort :current-color="activeFilter === FilterEnum.Armor ? 'white' : 'gray'" />
       </div>
-      <div @click="setActiveFilter('misc')" class="sidebar-item">
-        <IconMiscSort :current-color="activeFilter === 'misc' ? 'white' : 'gray'" />
+      <div @click="setActiveFilter(FilterEnum.Misc)" class="sidebar-item">
+        <IconMiscSort :current-color="activeFilter === FilterEnum.Misc ? 'white' : 'gray'" />
       </div>
-      <div @click="setActiveFilter('weapon')" class="sidebar-item">
-        <IconWeaponSort :current-color="activeFilter === 'weapon' ? 'white' : 'gray'" />
+      <div @click="setActiveFilter(FilterEnum.Weapon)" class="sidebar-item">
+        <IconWeaponSort :current-color="activeFilter === FilterEnum.Weapon ? 'white' : 'gray'" />
       </div>
     </div>
     <div class="sidebar-item trash-icon">
@@ -42,12 +43,12 @@ const setActiveFilter = (filter: 'all' | 'armor' | 'weapon' | 'misc') => {
 
 <style scoped>
 .sidebar {
-  width: 50px;
+  width: 64px;
   background-color: var(--gray);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px 5px;
+  padding: 16px 11px;
   border: 1px solid var(--black);
 }
 
@@ -67,7 +68,7 @@ const setActiveFilter = (filter: 'all' | 'armor' | 'weapon' | 'misc') => {
 }
 
 .sidebar-item.trash-icon {
-  padding: 10px;
+  padding: 7px;
   border: 2px solid var(--white-gray);
   border-radius: 2px;
 }

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { InventoryItemT } from '@/types/inventory-types.ts'
+import { FilterEnum, type InventoryItemT } from '@/types/inventory-types.ts'
 import { computed, type Ref, unref } from 'vue'
 import InventoryGrid from '@/components/InventoryGrid.vue'
 import FilterLabel from '@/components/FilterLabel.vue'
 
 interface InventoryContentProps {
   items: Ref<InventoryItemT[]> | InventoryItemT[]
-  activeFilter: 'all' | 'armor' | 'weapon' | 'misc'
+  activeFilter: FilterEnum
   allItems: InventoryItemT[]
 }
 
@@ -46,7 +46,7 @@ const shouldShowScroll = computed(() => {
   margin-bottom: 16px;
   overflow: hidden;
   max-height: 744px;
-  margin-right: 7px;
+  margin-right: 7.7px;
 
   &.with-scroll {
     overflow-y: scroll;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ItemCooldown from '@/components/ItemCooldown.vue'
-import type { InventoryItemT } from '@/types/inventory-types.ts'
+import { FilterEnum, type InventoryItemT } from '@/types/inventory-types.ts'
 import CursorTooltip from '@/components/CursorTooltip.vue'
 import { isRef, type Ref, ref } from 'vue'
 
@@ -70,8 +70,8 @@ const hideTooltip = () => {
   <div
     class="item-slot"
     :class="{
-       'armor': getItemAtPosition(row - 1, col - 1)!.type === 'armor',
-       'weapon': getItemAtPosition(row - 1, col - 1)!.type === 'weapon',
+       'armor': getItemAtPosition(row - 1, col - 1)!.type === FilterEnum.Armor,
+       'weapon': getItemAtPosition(row - 1, col - 1)!.type === FilterEnum.Weapon,
     }"
     @mouseenter="showTooltip($event, getItemAtPosition(row - 1, col - 1)!)"
     @mousemove="updateTooltipPosition"

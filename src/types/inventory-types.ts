@@ -8,3 +8,10 @@ export interface InventoryItemT {
   maxCharges?: number
   cooldown?: number
 }
+
+export enum FilterEnum {
+  All = 'all',
+  Armor = 'armor',
+  Weapon = 'weapon',
+  Misc = 'misc',
+}

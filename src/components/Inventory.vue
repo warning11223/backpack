@@ -6,8 +6,9 @@ import LoadingState from '@/components/LoadingState.vue'
 import ErrorState from '@/components/ErrorState.vue'
 import InventoryContent from '@/components/InventoryContent.vue'
 import useInventoryApi from '@/api/use-inventory-api.ts'
+import { FilterEnum } from '@/types/inventory-types.ts'
 
-const activeFilter = ref<'all' | 'armor' | 'weapon' | 'misc'>('all')
+const activeFilter = ref<FilterEnum>(FilterEnum.All)
 const { items, loading, error, loadInventory } = useInventoryApi()
 
 const filteredItems = computed(() => {
