@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type { InventoryItemT } from '@/types/inventory-types.ts'
 
 interface ApiResponse {
@@ -30,6 +30,15 @@ export default function useInventoryApi() {
       loading.value = false
     }
   }
+
+  const getCaseFromURL = (): string => {
+    const urlParams = new URLSearchParams(window.location.search)
+    return urlParams.get('case') || '1'
+  }
+
+  onMounted(() => {
+    loadInventory(getCaseFromURL())
+  })
 
   return {
     items,

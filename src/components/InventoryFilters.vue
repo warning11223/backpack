@@ -5,12 +5,14 @@ import IconArmorSort from '@/components/icons/IconArmorSort.vue'
 import IconMiscSort from '@/components/icons/IconMiscSort.vue'
 import IconAllSort from '@/components/icons/IconAllSort.vue'
 import { FilterEnum } from '@/types/inventory-types.ts'
+import { toRefs } from 'vue'
 
 interface InventoryFiltersProps {
   activeFilter: FilterEnum
 }
 
-const { activeFilter } = defineProps<InventoryFiltersProps>()
+const props = defineProps<InventoryFiltersProps>()
+const { activeFilter } = toRefs(props)
 
 const emit = defineEmits(['update:activeFilter'])
 

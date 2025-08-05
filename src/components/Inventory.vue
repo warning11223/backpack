@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import InventoryTabs from '@/components/InventoryTabs.vue'
 import InventoryFilters from '@/components/InventoryFilters.vue'
 import LoadingState from '@/components/LoadingState.vue'
@@ -9,20 +9,12 @@ import useInventoryApi from '@/api/use-inventory-api.ts'
 import { FilterEnum } from '@/types/inventory-types.ts'
 
 const activeFilter = ref<FilterEnum>(FilterEnum.All)
-const { items, loading, error, loadInventory } = useInventoryApi()
+
+const { items, loading, error } = useInventoryApi()
 
 const filteredItems = computed(() => {
-  if (activeFilter.value === 'all') return items.value
+  if (activeFilter.value === FilterEnum.All) return items.value
   return items.value.filter((item) => item.type === activeFilter.value)
-})
-
-const getCaseFromURL = (): string => {
-  const urlParams = new URLSearchParams(window.location.search)
-  return urlParams.get('case') || '1'
-}
-
-onMounted(() => {
-  loadInventory(getCaseFromURL())
 })
 </script>
 

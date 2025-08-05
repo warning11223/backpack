@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { toRefs } from 'vue'
+
 interface TooltipProps {
   tooltipVisible: boolean
   tooltipX: number
@@ -6,7 +8,9 @@ interface TooltipProps {
   tooltipContent: string
 }
 
-const { tooltipX, tooltipVisible, tooltipY, tooltipContent } = defineProps<TooltipProps>()
+const props = defineProps<TooltipProps>()
+const { tooltipX, tooltipVisible, tooltipY, tooltipContent } = toRefs(props)
+
 </script>
 
 <template>

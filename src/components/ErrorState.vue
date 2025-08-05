@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { toRefs } from 'vue'
 
 interface ErrorStateProps {
   error: string;
 }
 
-const { error } = defineProps<ErrorStateProps>()
+const props = defineProps<ErrorStateProps>()
+const { error } = toRefs(props)
+
 </script>
 
 <template>

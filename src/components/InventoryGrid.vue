@@ -1,29 +1,29 @@
 <script setup lang="ts">
 import InventoryItem from '@/components/InventoryItem.vue'
 import type { InventoryItemT } from '@/types/inventory-types.ts'
-import { computed, isRef, type Ref } from 'vue'
+import { computed, type Ref, unref } from 'vue'
 
 interface InventoryGridProps {
   items: Ref<InventoryItemT[]> | InventoryItemT[]
 }
 
-const { items } = defineProps<InventoryGridProps>()
+const props = defineProps<InventoryGridProps>()
 
-const itemsArray = isRef(items) ? items.value : items
+const itemsArray = computed(() => unref(props.items))
 
 const gridCols = 5
 
 // Кол-во рядов на основе кол-ва предметов
 const gridRows = computed(() => {
   const minRows = 8
-  const itemsCount = itemsArray.length
+  const itemsCount = itemsArray.value.length
   const neededRows = Math.ceil(itemsCount / gridCols)
   return Math.max(minRows, neededRows)
 })
 
 const getItemAtPosition = (row: number, col: number): InventoryItemT | null => {
   const index = row * gridCols + col
-  return itemsArray?.[index] ?? null
+  return itemsArray.value?.[index] ?? null
 }
 </script>
 
@@ -41,7 +41,7 @@ const getItemAtPosition = (row: number, col: number): InventoryItemT | null => {
       >
         <InventoryItem
           v-if="getItemAtPosition(row - 1, col - 1)"
-          :items="items"
+          :items="props.items"
           :grid-cols="gridCols"
           :row="row"
           :col="col"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { FilterEnum, type InventoryItemT } from '@/types/inventory-types.ts'
-import { computed, type Ref, unref } from 'vue'
+import { computed, type Ref, toRefs, unref } from 'vue'
 import InventoryGrid from '@/components/InventoryGrid.vue'
 import FilterLabel from '@/components/FilterLabel.vue'
 
@@ -10,10 +10,11 @@ interface InventoryContentProps {
   allItems: InventoryItemT[]
 }
 
-const { activeFilter, items, allItems } = defineProps<InventoryContentProps>()
+const props = defineProps<InventoryContentProps>()
+const { activeFilter, items, allItems } = toRefs(props)
 
 const shouldShowScroll = computed(() => {
-  const itemsArray = unref(items)
+  const itemsArray = unref(items.value)
   return itemsArray.length > 40
 })
 </script>

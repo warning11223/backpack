@@ -2,7 +2,7 @@
 import ItemCooldown from '@/components/ItemCooldown.vue'
 import { FilterEnum, type InventoryItemT } from '@/types/inventory-types.ts'
 import CursorTooltip from '@/components/CursorTooltip.vue'
-import { isRef, type Ref, ref } from 'vue'
+import { computed, unref, type Ref, ref } from 'vue'
 
 interface InventoryItemProps {
   row: number
@@ -11,7 +11,7 @@ interface InventoryItemProps {
   gridCols: number
 }
 
-const { gridCols, col, row, items } = defineProps<InventoryItemProps>()
+const props = defineProps<InventoryItemProps>()
 
 const tooltipVisible = ref(false)
 const tooltipContent = ref('')
@@ -19,24 +19,50 @@ const tooltipX = ref(0)
 const tooltipY = ref(0)
 const tooltipType = ref<string>('')
 
+const itemsArray = computed(() => unref(props.items))
+
 // Получаем предмет по позиции в сетке
-const getItemAtPosition = (row: number, col: number): InventoryItemT | null => {
-  const itemsArray = isRef(items) ? items.value : items
-  const index = row * gridCols + col
-  return itemsArray?.[index] ?? null
-}
+const currentItem = computed((): InventoryItemT | null => {
+  const index = (props.row - 1) * props.gridCols + (props.col - 1)
+  return itemsArray.value?.[index] ?? null
+})
 
-// Форматируем отображение количества
-const formatCount = (item: InventoryItemT): string => {
-  if (item.count && item.count > 1) {
-    return `x${item.count}`
+const hasItem = computed(() => currentItem.value !== null)
+
+const itemClasses = computed(() => {
+  if (!currentItem.value) return {}
+
+  return {
+    'armor': currentItem.value.type === FilterEnum.Armor,
+    'weapon': currentItem.value.type === FilterEnum.Weapon,
   }
-  return ''
+})
+
+const itemCount = computed(() => {
+  if (!currentItem.value?.count || currentItem.value.count <= 1) return ''
+  return `x${currentItem.value.count}`
+})
+
+const hasCharges = computed(() =>
+  currentItem.value?.charges !== undefined && currentItem.value?.charges !== null
+)
+
+const chargesText = computed(() => {
+  if (!hasCharges.value || !currentItem.value) return ''
+  return `${currentItem.value.charges}/${currentItem.value.maxCharges}`
+})
+
+// Получение предмета
+const getItemAtPosition = (row: number, col: number): InventoryItemT | null => {
+  const index = row * props.gridCols + col
+  return itemsArray.value?.[index] ?? null
 }
 
-const showTooltip = (event: MouseEvent, item: InventoryItemT) => {
-  tooltipContent.value = item.name
-  tooltipType.value = item.type
+const showTooltip = (event: MouseEvent) => {
+  if (!currentItem.value) return
+
+  tooltipContent.value = currentItem.value.name
+  tooltipType.value = currentItem.value.type
   tooltipVisible.value = true
   updateTooltipPosition(event)
 }
@@ -68,43 +94,41 @@ const hideTooltip = () => {
 
 <template>
   <div
+    v-if="hasItem"
     class="item-slot"
-    :class="{
-       'armor': getItemAtPosition(row - 1, col - 1)!.type === FilterEnum.Armor,
-       'weapon': getItemAtPosition(row - 1, col - 1)!.type === FilterEnum.Weapon,
-    }"
-    @mouseenter="showTooltip($event, getItemAtPosition(row - 1, col - 1)!)"
+    :class="itemClasses"
+    @mouseenter="showTooltip"
     @mousemove="updateTooltipPosition"
     @mouseleave="hideTooltip"
   >
     <img
-      :src="getItemAtPosition(row - 1, col - 1)!.imageUrl"
-      :alt="getItemAtPosition(row - 1, col - 1)!.name"
+      :src="currentItem!.imageUrl"
+      :alt="currentItem!.name"
       class="item-image"
     />
 
     <div
-      v-if="formatCount(getItemAtPosition(row - 1, col - 1)!)"
+      v-if="itemCount"
       class="item-quantity"
     >
-      {{ formatCount(getItemAtPosition(row - 1, col - 1)!) }}
+      {{ itemCount }}
     </div>
 
     <div
-      v-if="getItemAtPosition(row - 1, col - 1)!.charges"
+      v-if="hasCharges"
       class="charges-triangle"
     ></div>
 
     <div
-      v-if="getItemAtPosition(row - 1, col - 1)!.charges"
+      v-if="hasCharges"
       class="charges-triangle-text"
     >
-      {{ getItemAtPosition(row - 1, col - 1)!.charges }}/{{ getItemAtPosition(row - 1, col - 1)!.maxCharges }}
+      {{ chargesText }}
     </div>
 
     <ItemCooldown
-      :row="row"
-      :col="col"
+      :row="props.row"
+      :col="props.col"
       :get-item-at-position="getItemAtPosition"
     />
   </div>

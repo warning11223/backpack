@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, isRef, type Ref } from 'vue'
+import { computed, type Ref, toRefs, unref } from 'vue'
 import { FilterEnum, type InventoryItemT } from '@/types/inventory-types.ts'
 
 interface InventoryContentProps {
@@ -8,20 +8,19 @@ interface InventoryContentProps {
   allItems: InventoryItemT[]
 }
 
-const {items, allItems, activeFilter} = defineProps<InventoryContentProps>()
-
-const itemsArray = isRef(items) ? items.value : items
+const props = defineProps<InventoryContentProps>()
+const { activeFilter, allItems, items } = toRefs(props)
 
 // Кол-во предметов
-const itemCount = computed(() => itemsArray.length)
+const itemCount = computed(() => unref(items.value).length)
 
 // Заголовок для текущего фильтра
 const getFilterTitle = (): string => {
-  switch (activeFilter) {
-    case 'all': return 'ALL ITEMS'
-    case 'armor': return 'ARMOR'
-    case 'weapon': return 'WEAPONS'
-    case 'misc': return 'MISCELLANEOUS'
+  switch (activeFilter.value) {
+    case FilterEnum.All: return 'ALL ITEMS'
+    case FilterEnum.Armor: return 'ARMOR'
+    case FilterEnum.Weapon: return 'WEAPONS'
+    case FilterEnum.Misc: return 'MISCELLANEOUS'
     default: return 'ALL ITEMS'
   }
 }

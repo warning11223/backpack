@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import IconTimer from '@/components/icons/IconTimer.vue'
 import type { InventoryItemT } from '@/types/inventory-types.ts'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 interface Props {
   row: number
@@ -9,53 +9,73 @@ interface Props {
   getItemAtPosition: (row: number, col: number) => InventoryItemT | null
 }
 
-const { row, getItemAtPosition, col } = defineProps<Props>()
+const props = defineProps<Props>()
 
 const cooldownTimer = ref<number | null>(null)
 const now = ref(Date.now())
 
+// Получаем текущий предмет
+const currentItem = computed(() =>
+  props.getItemAtPosition(props.row - 1, props.col - 1)
+)
+
 // Проверяем есть ли кулдаун у предмета
-const hasCooldown = (item: InventoryItemT): boolean => {
-  return item.cooldown ? item.cooldown > Date.now() : false
-}
+const hasCooldown = computed(() => {
+  if (!currentItem.value?.cooldown) return false
+  return currentItem.value.cooldown > now.value
+})
 
-// Вычисляем оставшееся время кулдауна
-const getRemainingCooldown = (cooldownTimestamp: number): number => {
-  return Math.max(0, Math.floor((cooldownTimestamp - now.value) / 1000))
-}
+// Вычисляем оставшееся время кулдауна в секундах
+const remainingSeconds = computed(() => {
+  if (!currentItem.value?.cooldown || !hasCooldown.value) return 0
+  return Math.max(0, Math.ceil((currentItem.value.cooldown - now.value) / 1000))
+})
 
-// Форматируем время кулдауна
-const formatCooldown = (cooldownTimestamp: number): string => {
-  const seconds = getRemainingCooldown(cooldownTimestamp)
+const formattedCooldown = computed(() => `${remainingSeconds.value}s`)
 
-  return `${seconds}s`
-}
+const startTimer = () => {
+  if (cooldownTimer.value) return
 
-// Обновляем текущее время каждую секунду
-const startCooldownTimer = () => {
   cooldownTimer.value = setInterval(() => {
     now.value = Date.now()
   }, 1000)
 }
 
+const stopTimer = () => {
+  if (cooldownTimer.value) {
+    clearInterval(cooldownTimer.value)
+    cooldownTimer.value = null
+  }
+}
+
+watch(hasCooldown, (hasCD) => {
+  if (hasCD) {
+    startTimer()
+  } else {
+    stopTimer()
+  }
+}, { immediate: true })
+
+watch(currentItem, () => {
+  now.value = Date.now()
+}, { immediate: true })
+
 onMounted(() => {
-  startCooldownTimer()
+  now.value = Date.now()
 })
 
 onUnmounted(() => {
-  if (cooldownTimer.value) {
-    clearInterval(cooldownTimer.value)
-  }
+  stopTimer()
 })
 </script>
 
 <template>
   <div
-    v-if="hasCooldown(getItemAtPosition(row - 1, col - 1)!)"
+    v-if="hasCooldown"
     class="item-cooldown"
   >
     <IconTimer />
-    {{ formatCooldown(getItemAtPosition(row - 1, col - 1)!.cooldown!) }}
+    {{ formattedCooldown }}
   </div>
 </template>
 
@@ -76,7 +96,6 @@ onUnmounted(() => {
   color: var(--text-white);
   font-size: 17px;
   font-weight: bold;
-
   padding: 2px 6px;
   border-radius: 4px;
   z-index: 22;
@@ -92,5 +111,4 @@ onUnmounted(() => {
     z-index: -1;
   }
 }
-
 </style>
